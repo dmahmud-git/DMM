@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CV — Dewan Mahnaaz Mahmud</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body>
+
+<header id="topbar"></header>
+<nav    id="mobile-drawer"></nav>
+
+<div id="page-wrap">
+  <div id="body-row">
+    <aside id="sidebar"></aside>
+
+    <!-- ═══════════════════════════════════════════
+         CV — edit content in js/data.js → cv
+         ═══════════════════════════════════════════ -->
+    <main id="main">
+      <h1 class="page-title">Experience</h1>
+
+      <h2 class="section-h2">Employment</h2>
+      <div id="cv-exp"></div>
+
+      <h2 class="section-h2">Teaching</h2>
+      <div id="cv-teaching"></div>
+
+      <h2 class="section-h2">Technical Skills</h2>
+      <div id="cv-skills"></div>
+    </main>
+  </div>
+</div><!-- /#page-wrap -->
+
+<!-- Full-width footer — sits OUTSIDE page-wrap so it spans the whole viewport -->
+<footer id="footer"></footer>
+
+<script src="../js/data.js"></script>
+<script src="../js/utils.js"></script>
+<script src="../js/components.js"></script>
+<script>
+  Components.init("../");
+
+
+  // Helper: render cv rows
+  function cvSection(items, type = "edu") {
+    return items.map(r => {
+      if (type === "edu") {
+        let html = `
+        <div class="pub-entry" style="margin-bottom: 1.25rem; font-size: 0.95rem; line-height: 1.6;">
+          <strong class="edu-degree" style="color: var(--text);">${r.degree}</strong><br>
+          <span style="color: var(--text);">${r.institution}</span><br>
+          <span style="color: var(--muted);"><em>${r.year}</em></span>`;
+        
+        if (r.details && r.details.length > 0) {
+          r.details.forEach(detail => {
+            html += `<br><span style="color: var(--text);">${detail.key}: ${detail.val}</span>`;
+          });
+        }
+        
+        html += `</div>`;
+        return html;
+      } else if (type === "exp") {
+        return `
+        <div class="pub-entry" style="margin-bottom: 1.25rem; font-size: 0.95rem; line-height: 1.6;">
+          <strong style="color: var(--text);">${r.role}</strong><br>
+          <span style="color: var(--text);">${r.org}</span><br>
+          <span style="color: var(--muted);"><em>${r.year}</em></span>
+          ${r.note ? `<br><span style="color: var(--muted);">${r.note}</span>` : ""}
+        </div>`;
+      } else {
+        return `
+        <div class="cv-row">
+          <div class="cv-year"><em>${r.year}</em></div>
+          <div>
+            <span class="cv-role">${r.role}</span>
+            <span class="cv-org">${r.org}</span>
+            ${r.note ? `<span class="cv-note">${r.note}</span>` : ""}
+          </div>
+        </div>`;
+      }
+    }).join("");
+  }
+
+  Utils.render("cv-exp",      cvSection(SITE.cv.employment, "exp"));
+  const graduateHtml = SITE.teaching.Graduate.map(t => `
+    <div class="pub-entry" style="margin-bottom: 0.75rem; font-size: 0.95rem; line-height: 1.6;">
+      ${t}
+    </div>
+  `).join("");
+  const undergraduateHtml = SITE.teaching.Undergraduate.map(t => `
+    <div class="pub-entry" style="margin-bottom: 0.75rem; font-size: 0.95rem; line-height: 1.6;">
+      ${t}
+    </div>
+  `).join("");
+  Utils.render("cv-teaching", `
+    ${graduateHtml}
+    ${undergraduateHtml}
+  `);
+  Utils.render("cv-skills",   `<div class="pub-entry" style="font-size: 0.95rem; line-height: 1.6;">${SITE.cv.skills.join(", ")}</div>`);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blog Posts — Dewan Mahnaaz Mahmud</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body>
+
+<header id="topbar"></header>
+<nav    id="mobile-drawer"></nav>
+
+<div id="page-wrap">
+  <div id="body-row">
+    <aside id="sidebar"></aside>
+
+    <!-- ═══════════════════════════════════════════
+         BLOG — add posts in js/data.js
+         under the "blog" array
+         ═══════════════════════════════════════════ -->
+    <main id="main">
+      <h1 class="page-title">Blog Posts</h1>
+      <div id="blog-list"></div>
+    </main>
+  </div>
+</div><!-- /#page-wrap -->
+
+<!-- Full-width footer — sits OUTSIDE page-wrap so it spans the whole viewport -->
+<footer id="footer"></footer>
+
+<script src="../js/data.js"></script>
+<script src="../js/utils.js"></script>
+<script src="../js/components.js"></script>
+<script>
+  Components.init("../");
+
+  Utils.render("blog-list", SITE.blog.map(p => `
+    <div class="entry">
+      ${Utils.img(p.image, p.title)}
+      <div class="entry-body">
+        <div class="post-date">${Utils.fmtDate(p.date)}</div>
+        <div class="post-title"><a href="${p.href}">${p.title}</a></div>
+        <div class="post-excerpt">${p.excerpt}</div>
+      </div>
+    </div>`).join(""));
+</script>
+
+</body>
+</html>

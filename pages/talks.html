@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Invited Talks — Dewan Mahnaaz Mahmud</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body>
+
+<header id="topbar"></header>
+<nav    id="mobile-drawer"></nav>
+
+<div id="page-wrap">
+  <div id="body-row">
+    <aside id="sidebar"></aside>
+
+    <!-- ═══════════════════════════════════════════
+         TALKS — add entries in js/data.js
+         under the "talks" array
+         ═══════════════════════════════════════════ -->
+    <main id="main">
+      <h1 class="page-title">Invited Talks</h1>
+      <div id="talk-list"></div>
+    </main>
+  </div>
+</div><!-- /#page-wrap -->
+
+<!-- Full-width footer — sits OUTSIDE page-wrap so it spans the whole viewport -->
+<footer id="footer"></footer>
+
+<script src="../js/data.js"></script>
+<script src="../js/utils.js"></script>
+<script src="../js/components.js"></script>
+<script>
+  Components.init("../");
+
+  Utils.render("talk-list", SITE.talks.map(t => `
+    <div class="entry">
+      ${Utils.img(t.image, t.title)}
+      <div class="entry-body">
+        <div class="entry-title">${t.title}</div>
+        <div class="entry-meta">${t.event} &nbsp;·&nbsp; ${t.place} &nbsp;·&nbsp; ${Utils.fmtDate(t.date)}</div>
+        <div class="entry-desc">${t.desc}</div>
+        <div class="entry-footer">${Utils.pills(t.links)}</div>
+      </div>
+    </div>`).join(""));
+</script>
+
+</body>
+</html>

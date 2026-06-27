@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Teaching — Dewan Mahnaaz Mahmud</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body>
+
+<header id="topbar"></header>
+<nav    id="mobile-drawer"></nav>
+
+<div id="page-wrap">
+  <div id="body-row">
+    <aside id="sidebar"></aside>
+
+    <!-- ═══════════════════════════════════════════
+         TEACHING — add entries in js/data.js
+         under the "teaching" array
+         ═══════════════════════════════════════════ -->
+    <main id="main">
+      <h1 class="page-title">Teaching</h1>
+      <ul class="prose" id="teaching-list"></ul>
+    </main>
+  </div>
+</div><!-- /#page-wrap -->
+
+<!-- Full-width footer — sits OUTSIDE page-wrap so it spans the whole viewport -->
+<footer id="footer"></footer>
+
+<script src="../js/data.js"></script>
+<script src="../js/utils.js"></script>
+<script src="../js/components.js"></script>
+<script>
+  Components.init("../");
+
+  Utils.render("teaching-list", SITE.teaching.map(t => `
+    <li>${t}</li>
+  `).join(""));
+</script>
+
+</body>
+</html>

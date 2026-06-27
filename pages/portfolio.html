@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Projects — Dewan Mahnaaz Mahmud</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body>
+
+<header id="topbar"></header>
+<nav    id="mobile-drawer"></nav>
+
+<div id="page-wrap">
+  <div id="body-row">
+    <aside id="sidebar"></aside>
+
+    <!-- ═══════════════════════════════════════════
+         PROJECTS — add projects in js/data.js
+         under the "project" array
+         ═══════════════════════════════════════════ -->
+    <main id="main">
+      <h1 class="page-title">Projects</h1>
+      <div id="portfolio-list"></div>
+    </main>
+  </div>
+</div><!-- /#page-wrap -->
+
+<!-- Full-width footer — sits OUTSIDE page-wrap so it spans the whole viewport -->
+<footer id="footer"></footer>
+
+<script src="../js/data.js"></script>
+<script src="../js/utils.js"></script>
+<script src="../js/components.js"></script>
+<script>
+  Components.init("../");
+
+  Utils.render("portfolio-list", SITE.project.map(p => `
+    <div class="pub-entry" style="margin-bottom: 1.25rem; font-size: 0.95rem; line-height: 1.6;">
+      <strong style="color: var(--text);">${p.title}</strong><br>
+      ${p.institution ? `<span style="color: var(--text);">${p.institution}</span><br>` : ""}
+      <span style="color: var(--muted);"><em>${p.date}</em></span>
+      ${p.desc ? `<div style="margin-top: 0.5rem; color: var(--text);">${p.desc}</div>` : ""}
+    </div>`).join(""));
+</script>
+
+</body>
+</html>

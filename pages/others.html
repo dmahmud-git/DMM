@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Others — Dewan Mahnaaz Mahmud</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body>
+  <header id="topbar"></header>
+  <nav id="mobile-drawer"></nav>
+
+  <div id="page-wrap">
+    <div id="body-row">
+      <aside id="sidebar"></aside>
+
+      <main id="main">
+        <h1 class="page-title">Others</h1>
+
+        <h2 class="section-h2">Invited Talks</h2>
+        <ul id="invited-talks-list" class="prose"></ul>
+        <h2 class="section-h2">Volunteering Experience</h2>
+        <div id="volunteering-list"></div>
+
+        <h2 class="section-h2">Curriculum Vitae</h2>
+        <div style="margin-top: 1.5rem;">
+          <a id="cv-download-btn" class="btn-download" target="_blank" download>
+            <span>📄</span> Download CV (PDF)
+          </a>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <footer id="footer"></footer>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/components.js"></script>
+  <script>
+    Components.init("../");
+
+    /* Invited Talks */
+    const invitedHtml = SITE.invitedTalks.map(p =>
+      `<li>${p}</li>`
+    ).join("");
+    Utils.render("invited-talks-list", invitedHtml);
+
+    /* Volunteering */
+    const volunteeringHtml = SITE.volunteering.map(v => `
+      <div class="pub-entry" style="margin-bottom: 1.25rem; font-size: 0.95rem; line-height: 1.6;">
+        <strong style="color: var(--text);">${v.role}</strong><br>
+        <span style="color: var(--text);"><em>${v.year}</em></span><br>
+        <span style="color: var(--text);">Organization: ${v.org}</span><br>
+        <span style="color: var(--text);">Institution: ${v.institution}</span>
+      </div>`).join("");
+    Utils.render("volunteering-list", volunteeringHtml);
+
+    /* CV Link */
+    const cvBtn = document.getElementById("cv-download-btn");
+    if (cvBtn && SITE.cvLink) {
+      cvBtn.href = "../" + SITE.cvLink;
+    }
+  </script>
+</body>
+</html>
